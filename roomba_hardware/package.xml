@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>roomba_hardware</name>
+  <version>1.0.0</version>
+  <description>ROS driver for both custom hardware and the roomba Open Interface.</description>
+
+  <maintainer email="blaine141@gmail.com">Blaine Miller</maintainer>
+
+  <license>BSD</license>
+
+  <author email="blaine141@gmail.com">Blaine Miller</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roslint</build_depend>
+
+  <depend>message_runtime</depend>
+  <depend>diagnostic_msgs</depend>
+  <depend>diagnostic_updater</depend>
+  <depend>geometry_msgs</depend>
+  <depend>libcreate</depend>
+  <depend>nav_msgs</depend>
+  <depend>roscpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>tf2_geometry_msgs</depend>
+  <depend>tf2_ros</depend>
+
+  <export>
+  </export>
+</package>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>roomba_description</name>
+  <version>1.0.0</version>
+  <description>Robot URDF descriptions for roomba</description>
+
+  <maintainer email="blaine141@gmail.com">Blaine Miller</maintainer>
+
+  <license>BSD</license>
+
+  <author email="blaine141@gmail.com">Blaine Miller</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roslaunch</build_depend>
+
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>urdf</exec_depend>
+  <exec_depend>xacro</exec_depend>
+
+  <export>
+  </export>
+</package>
