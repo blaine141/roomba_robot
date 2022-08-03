@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+  <node name="compass_test" pkg="roomba_hardware" type="compass_test" output="screen">
+    <rosparam command="load" file="$(find roomba_hardware)/cfg/magnetometer_calibration.yaml" />
+  </node>
+</launch>

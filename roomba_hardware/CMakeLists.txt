@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(roomba_hardware)
 
 add_compile_options(-std=c++11 -Wall -Wextra -Wpedantic)
@@ -59,12 +59,10 @@ include_directories(
 )
 
 add_executable(create_driver src/create_driver.cpp)
-
 target_link_libraries(create_driver
   ${libcreate_LIBRARIES}
   ${catkin_LIBRARIES}
 )
-
 add_dependencies(create_driver ${catkin_EXPORTED_TARGETS} roomba_hardware_generate_messages_cpp)
 
 EXECUTE_PROCESS( COMMAND uname -m COMMAND tr -d '\n' OUTPUT_VARIABLE ARCHITECTURE)
@@ -72,4 +70,7 @@ if (${ARCHITECTURE} MATCHES "arm")
   add_executable(compass src/compass.cpp)
   target_link_libraries(compass ${catkin_LIBRARIES} -lwiringPi)
 endif()
+
+# add_executable(compass_test src/compass_test.cpp)
+# target_link_libraries(compass_test ${catkin_LIBRARIES})
 

@@ -1,0 +1,56 @@
+# Switch wired controller
+teleop:
+  move:
+    type: topic
+    message_type: "geometry_msgs/Twist"
+    topic_name: cmd_vel
+    deadman_buttons: []  # No deadman buttons
+    axis_mappings:
+      -
+        axis: 3  # Right thumb (up/down)
+        scale: 0.4
+        offset: 0.0
+        target: linear.x
+      -
+        axis: 2  # Right thumb stick (left/right)
+        scale: 2.5
+        offset: 0.0
+        target: angular.z
+
+  vacuum:
+    type: topic
+    message_type: "std_msgs/Float32"
+    topic_name: vacuum
+    deadman_buttons: []  # No deadman buttons
+    axis_mappings:
+      -
+        button: 0
+        scale: 1
+        target: data
+
+  main_brush:
+    type: topic
+    message_type: "std_msgs/Float32"
+    topic_name: main_brush
+    deadman_buttons: []  # No deadman buttons
+    axis_mappings:
+      -
+        axis: 5  # D-pad up down
+        scale: .75
+        offset: 0.0
+        target: data
+  
+  
+  side_brush:
+    type: topic
+    message_type: "std_msgs/Float32"
+    topic_name: side_brush
+    deadman_buttons: []  # No deadman buttons
+    axis_mappings:
+      -
+        axis: 4  # D-pad left right
+        scale: .75
+        offset: 0.0
+        target: data
+
+

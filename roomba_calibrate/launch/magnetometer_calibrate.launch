@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="rosbag" type="play" name="player" output="screen" args="--clock /home/blaine/magnetometer_2022-06-19-18-09-58.bag /home/blaine/video_2022-06-19-18-09-56.bag"/>
+    <node name="magnetometer_calibrate" pkg="roomba_calibrate" type="magnetometer_calibrate.py" output="screen" />
+</launch>

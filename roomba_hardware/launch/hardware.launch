@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+  <node name="create_driver" pkg="roomba_hardware" type="create_driver" output="screen" />
+  <include file="$(find roomba_hardware)/launch/compass.launch" />
+</launch>

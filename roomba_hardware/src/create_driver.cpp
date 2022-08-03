@@ -39,7 +39,7 @@ CreateDriver::CreateDriver(ros::NodeHandle& nh)
     is_running_slowly_(false)
 {
   std::string robot_model_name;
-  priv_nh_.param<std::string>("dev", dev_, "/dev/ttyUSB0");
+  priv_nh_.param<std::string>("dev", dev_, "/dev/serial0");
   priv_nh_.param<std::string>("robot_model", robot_model_name, "CREATE_2");
   priv_nh_.param<std::string>("base_frame", base_frame_, "base_footprint");
   priv_nh_.param<std::string>("odom_frame", odom_frame_, "odom");
@@ -71,6 +71,9 @@ CreateDriver::CreateDriver(ros::NodeHandle& nh)
   priv_nh_.param<int>("baud", baud_, model_.getBaud());
 
   robot_ = new create::Create(model_);
+
+  // TODO: config this for other models
+  robot_->setModeReportWorkaround(true);
 
   if (!robot_->connect(dev_, baud_))
   {
@@ -120,6 +123,9 @@ CreateDriver::CreateDriver(ros::NodeHandle& nh)
   undock_sub_ = nh.subscribe("undock", 10, &CreateDriver::undockCallback, this);
   define_song_sub_ = nh.subscribe("define_song", 10, &CreateDriver::defineSongCallback, this);
   play_song_sub_ = nh.subscribe("play_song", 10, &CreateDriver::playSongCallback, this);
+  main_brush_sub_ = nh.subscribe("main_brush", 10, &CreateDriver::mainBrushCallback, this);
+  side_brush_sub_ = nh.subscribe("side_brush", 10, &CreateDriver::sideBrushCallback, this);
+  vacuum_sub_ = nh.subscribe("vacuum", 10, &CreateDriver::vacuumCallback, this);
 
   // Setup publishers
   odom_pub_ = nh.advertise<nav_msgs::Odometry>("odom", 30);
@@ -270,6 +276,30 @@ void CreateDriver::playSongCallback(const roomba_hardware::PlaySongConstPtr& msg
   if (!robot_->playSong(msg->song))
   {
     ROS_ERROR_STREAM("[CREATE] Failed to play song " << msg->song);
+  }
+}
+
+void CreateDriver::mainBrushCallback(const std_msgs::Float32ConstPtr& msg)
+{
+  if (!robot_->setMainMotor(msg->data))
+  {
+    ROS_ERROR("[CREATE] Failed to set main brush power to %f", msg->data);
+  }
+}
+
+void CreateDriver::sideBrushCallback(const std_msgs::Float32ConstPtr& msg)
+{
+  if (!robot_->setSideMotor(msg->data))
+  {
+    ROS_ERROR("[CREATE] Failed to set side brush power to %f", msg->data);
+  }
+}
+
+void CreateDriver::vacuumCallback(const std_msgs::Float32ConstPtr& msg)
+{
+  if (!robot_->setVacuumMotor(msg->data))
+  {
+    ROS_ERROR("[CREATE] Failed to set vacuum power to %f", msg->data);
   }
 }
 
